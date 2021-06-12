@@ -26,6 +26,12 @@ public class MovieServiceController {
         return movieRepository.findAll(pageable);
     }
 
+    @GetMapping("/movie/{id}")
+    public Movie getMovie(@PathVariable UUID id) {
+        return movieRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
     @PostMapping("/movie")
     public Movie createMovie(@RequestBody @Valid Movie movie) {
         return movieRepository.save(movie);
