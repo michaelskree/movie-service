@@ -1,9 +1,13 @@
 package com.michaelskree.movieservice;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -15,5 +19,10 @@ public class MovieServiceController {
     @GetMapping("/movie")
     public Page<Movie> getMovies(Pageable pageable) {
         return movieRepository.findAll(pageable);
+    }
+
+    @PostMapping("/movie")
+    public Movie createMovie(@RequestBody @Valid Movie movie) {
+        return movieRepository.save(movie);
     }
 }
