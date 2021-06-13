@@ -13,7 +13,10 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.TypeDef;
+
 import com.vladmihalcea.hibernate.type.interval.PostgreSQLIntervalType;
+
+import io.swagger.annotations.ApiModelProperty;
 
 @TypeDef(
     typeClass = PostgreSQLIntervalType.class,
@@ -26,18 +29,23 @@ public class Movie {
     public UUID id;
 
     @Size(min = 1, max = 50)
+    @ApiModelProperty(example = "My Movie")
     public String title;
 
     @Enumerated(EnumType.STRING)
+    @ApiModelProperty(example = "Streaming")
     public MovieFormat format;
 
+    @ApiModelProperty(dataType = "string", example = "PT1H45M")
     public Duration length;
 
     @Min(1800)
     @Max(2100)
+    @ApiModelProperty(example = "2021")
     public Integer releaseYear;
 
     @Min(1)
     @Max(5)
+    @ApiModelProperty(example = "5")
     public Integer rating;
 }

@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import springfox.documentation.annotations.ApiIgnore;
+
 @RestController
 public class MovieServiceController {
 
@@ -27,26 +32,57 @@ public class MovieServiceController {
      * Health check endpoint
      */
     @GetMapping("/health")
+    @ApiIgnore
     public void health() {
     }
 
     @GetMapping("/movie")
-    public Page<Movie> getMovies(Pageable pageable) {
+    @ApiOperation("List movies")
+    @ApiImplicitParams({
+        @ApiImplicitParam(
+            name = "size",
+            required = false,
+            dataTypeClass = Integer.class,
+            paramType = "query",
+            value = "Page size",
+            example = "25"
+        ),
+        @ApiImplicitParam(
+            name = "page",
+            required = false,
+            dataTypeClass = Integer.class,
+            paramType = "query",
+            value = "Page number",
+            example = "0"
+        ),
+        @ApiImplicitParam(
+            name = "sort",
+            required = false,
+            dataTypeClass = String.class,
+            paramType = "query",
+            value = "Sort property and direction",
+            example = "title,asc"
+        )
+    })
+    public Page<Movie> getMovies(@ApiIgnore Pageable pageable) {
         return movieRepository.findAll(pageable);
     }
 
     @GetMapping("/movie/{id}")
+    @ApiOperation("Get a movie")
     public Movie getMovie(@PathVariable UUID id) {
         return movieRepository.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/movie")
+    @ApiOperation("Save a new movie")
     public Movie createMovie(@RequestBody @Valid Movie movie) {
         return movieRepository.save(movie);
     }
 
     @PutMapping("/movie/{id}")
+    @ApiOperation("Update a movie")
     public void updateMovie(@PathVariable UUID id, @RequestBody @Valid Movie movie) {
         if (movieRepository.existsById(id)) {
             movie.id = id;
@@ -58,6 +94,7 @@ public class MovieServiceController {
     }
 
     @DeleteMapping("/movie/{id}")
+    @ApiOperation("Delete a movie")
     public void deleteMovie(@PathVariable UUID id) {
         if (movieRepository.existsById(id)) {
             movieRepository.deleteById(id);

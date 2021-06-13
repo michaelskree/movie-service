@@ -23,3 +23,5 @@ Finally, execute the following command to compile and run the service:
 $ ./gradlew bootRun
 ```
 The service will now be accessible at http://localhost:8080
+## Service Endpoints
+After starting the service a Swagger UI instance will be accessible at http://localhost:8080/swagger-ui/index.html. This page enumerates all of the service endpoints and lets you test them out in a browser.

@@ -10,6 +10,7 @@ repositories {
 
 dependencies {
     implementation 'com.vladmihalcea:hibernate-types-52:2.11.1'
+    implementation "io.springfox:springfox-boot-starter:3.0.0"
     implementation 'org.flywaydb:flyway-core:7.10.0'
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.4'
     implementation 'org.postgresql:postgresql:42.2.21'
