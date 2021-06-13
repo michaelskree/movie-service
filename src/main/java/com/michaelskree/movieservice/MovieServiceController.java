@@ -23,6 +23,13 @@ public class MovieServiceController {
     @Autowired
     private MovieRepository movieRepository;
 
+    /**
+     * Health check endpoint
+     */
+    @GetMapping("/health")
+    public void health() {
+    }
+
     @GetMapping("/movie")
     public Page<Movie> getMovies(Pageable pageable) {
         return movieRepository.findAll(pageable);

@@ -10,11 +10,13 @@ Clone this repository and `cd` into the root directory. Execute the following co
 ```
 $ docker-compose up -d
 ```
-Database connection information is passed to the service via environment variables. Export the following variables in your shell:
+Database connection information and HTTP authorization credentials are passed to the service via environment variables. Export the following variables in your shell:
 ```bash
 export SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/movie_service
 export SPRING_DATASOURCE_USERNAME=postgres
 export SPRING_DATASOURCE_PASSWORD=abc123
+export SPRING_SECURITY_USER_NAME=<desired_username>
+export SPRING_SECURITY_USER_PASSWORD=<desired_password>
 ```
 Finally, execute the following command to compile and run the service:
 ```
